@@ -24,10 +24,14 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # localization deps, need to add the plugin in tools
   intl: ^0.16.1
-
   flutter_localizations:
     sdk: flutter
+  # end localization
+
+  # bloc pattern
+  rxdart: ^0.18.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
