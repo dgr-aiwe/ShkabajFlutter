@@ -5,26 +5,34 @@ var selectedItem = DrawerItemsEnum.BALLINA;
 class AppDrawer extends StatelessWidget {
 
   @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        children: [
-          DrawerHeader(
-              child:
-            Container(
-              child: Image.asset('lib/assets/images/shkabaj.png'),
-              padding: EdgeInsets.all(40),
-      )
-          ),
-          DrawerItem(itemName: "Ballina", type: DrawerItemsEnum.BALLINA,),
-          DrawerItem(itemName: "Lajme", type: DrawerItemsEnum.LAJME,),
-          DrawerItem(itemName: "Radio", type: DrawerItemsEnum.RADIO,),
-          DrawerItem(itemName: "Video", type: DrawerItemsEnum.VIDEO,),
-          DrawerItem(itemName: "Moti", type: DrawerItemsEnum.MOTI,),
-          DrawerItem(itemName: "Konfig", type: DrawerItemsEnum.KONFIG,),
-        ],
-      ),
-    );
+  Widget build(BuildContext context){
+    return
+      Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: Color(0xE5FFFFFF)
+        ),
+        child: Drawer(
+            child: Container(
+              child: ListView(
+                children: [
+                  DrawerHeader(
+                      child:
+                      Container(
+                        child: Image.asset('lib/assets/images/shkabaj.png'),
+                        padding: EdgeInsets.all(40),
+                      )
+                  ),
+                  DrawerItem(itemName: "Ballina", type: DrawerItemsEnum.BALLINA,),
+                  DrawerItem(itemName: "Lajme", type: DrawerItemsEnum.LAJME,),
+                  DrawerItem(itemName: "Radio", type: DrawerItemsEnum.RADIO,),
+                  DrawerItem(itemName: "Video", type: DrawerItemsEnum.VIDEO,),
+                  DrawerItem(itemName: "Moti", type: DrawerItemsEnum.MOTI,),
+                  DrawerItem(itemName: "Konfig", type: DrawerItemsEnum.KONFIG,),
+                ],
+              ),
+            )
+        ),
+      );
   }
 }
 
