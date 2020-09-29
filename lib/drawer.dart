@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:shkabaj_flutter/generated/l10n.dart';
 
 // ignore: must_be_immutable
 var selectedItem = DrawerItemsEnum.BALLINA;
 class AppDrawer extends StatelessWidget {
-
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
+    Locale locale = Localizations.localeOf(context);
+
     return
       Theme(
         data: Theme.of(context).copyWith(
@@ -22,12 +24,12 @@ class AppDrawer extends StatelessWidget {
                         padding: EdgeInsets.all(40),
                       )
                   ),
-                  DrawerItem(itemName: "Ballina", type: DrawerItemsEnum.BALLINA,),
-                  DrawerItem(itemName: "Lajme", type: DrawerItemsEnum.LAJME,),
-                  DrawerItem(itemName: "Radio", type: DrawerItemsEnum.RADIO,),
-                  DrawerItem(itemName: "Video", type: DrawerItemsEnum.VIDEO,),
-                  DrawerItem(itemName: "Moti", type: DrawerItemsEnum.MOTI,),
-                  DrawerItem(itemName: "Konfig", type: DrawerItemsEnum.KONFIG,),
+                  DrawerItem(itemName: S.of(context).ballina_title, type: DrawerItemsEnum.BALLINA,),
+                  DrawerItem(itemName: S.of(context).lajme_title, type: DrawerItemsEnum.LAJME,),
+                  DrawerItem(itemName: S.of(context).radio_title, type: DrawerItemsEnum.RADIO,),
+                  DrawerItem(itemName: S.of(context).video_title, type: DrawerItemsEnum.VIDEO,),
+                  DrawerItem(itemName: S.of(context).moti_title, type: DrawerItemsEnum.MOTI,),
+                  DrawerItem(itemName: S.of(context).konfig_title, type: DrawerItemsEnum.KONFIG,),
                 ],
               ),
             )
