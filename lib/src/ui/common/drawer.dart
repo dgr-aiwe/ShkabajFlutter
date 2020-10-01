@@ -6,8 +6,6 @@ var selectedItem = DrawerItemsEnum.BALLINA;
 class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Locale locale = Localizations.localeOf(context);
-
     return
       Theme(
         data: Theme.of(context).copyWith(

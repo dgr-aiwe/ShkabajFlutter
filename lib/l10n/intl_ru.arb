@@ -5,5 +5,9 @@
   "radio_title": "Радио",
   "video_title": "Видео",
   "moti_title": "Погода",
-  "konfig_title": "Настройки"
+  "konfig_title": "Настройки",
+  "daily_video_title": "Ежедневные видео",
+  "tv_title": "Телевидение",
+  "lidhje_title": "Непонятный блок"
+
 }
