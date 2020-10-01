@@ -8,6 +8,7 @@ import 'package:shkabaj_flutter/src/ui/common/app_bar.dart';
 import 'package:shkabaj_flutter/src/ui/common/drawer.dart';
 import 'package:shkabaj_flutter/generated/l10n.dart';
 import 'package:shkabaj_flutter/src/ui/header.dart';
+import 'package:shkabaj_flutter/src/ui/horizontal_scrollview.dart';
 
 void main() {
   runApp(ShkabajApp());
@@ -65,7 +66,18 @@ class BallinaScreen extends StatelessWidget {
               children: [
                 SectionHeader(itemType: HeaderType.Lajme),
                 CircularViewPager(),
-                SectionHeader(itemType: HeaderType.DailyVideos)
+                SectionHeader(itemType: HeaderType.DailyVideos),
+                HorizontalScrollView(),
+                SectionHeader(itemType: HeaderType.Radio),
+                HorizontalScrollView(),
+                SectionHeader(itemType: HeaderType.Video),
+                HorizontalScrollView(),
+                SectionHeader(itemType: HeaderType.Moti),
+                CircularViewPager(),
+                SectionHeader(itemType: HeaderType.Tv),
+                HorizontalScrollView(),
+                SectionHeader(itemType: HeaderType.Lidhje),
+                HorizontalScrollView()
               ],
             ),
           )
