@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shkabaj_flutter/src/blocs/localization_bloc.dart';
+import 'package:shkabaj_flutter/src/ui/circular_viewpager.dart';
 import 'package:shkabaj_flutter/src/ui/common/app_bar.dart';
 import 'package:shkabaj_flutter/src/ui/common/drawer.dart';
 import 'package:shkabaj_flutter/generated/l10n.dart';
@@ -59,10 +60,14 @@ class BallinaScreen extends StatelessWidget {
       home: Scaffold(
           drawer: AppDrawer(),
           appBar: ShkabajAppBar(locale: snapshot.data),
-          body: Column(
-            children: [
-              SectionHeader(itemType: HeaderType.Lajme)
-            ],
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                SectionHeader(itemType: HeaderType.Lajme),
+                CircularViewPager(),
+                SectionHeader(itemType: HeaderType.DailyVideos)
+              ],
+            ),
           )
       ),
     );

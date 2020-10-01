@@ -34,17 +34,17 @@ class SectionHeader extends StatelessWidget {
       break;
 
       case HeaderType.DailyVideos: {
-        return S.of(context).lajme_title;
-      }
-      break;
-
-      case HeaderType.Radio: {
         return S.of(context).daily_video_title;
       }
       break;
 
-      case HeaderType.Video: {
+      case HeaderType.Radio: {
         return S.of(context).radio_title;
+      }
+      break;
+
+      case HeaderType.Video: {
+        return S.of(context).video_title;
       }
       break;
 
