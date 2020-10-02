@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:shkabaj_flutter/src/models/lidhje.dart';
+import 'package:shkabaj_flutter/src/models/tv.dart';
 import 'package:shkabaj_flutter/src/models/video.dart';
 
 part 'retrofit.g.dart';
@@ -14,4 +15,7 @@ abstract class ApiClient {
 
   @GET("/mobi/common/ballina-lidhje.json")
   Future<Lidhje> getLidhje();
+
+  @GET("/mobi/common/tv-android.json")
+  Future<Tv> getTv();
 }

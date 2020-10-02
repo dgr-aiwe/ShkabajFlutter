@@ -7,7 +7,8 @@ import 'package:shkabaj_flutter/src/ui/common/app_bar.dart';
 import 'package:shkabaj_flutter/src/ui/common/drawer.dart';
 import 'package:shkabaj_flutter/generated/l10n.dart';
 import 'package:shkabaj_flutter/src/ui/header.dart';
-import 'package:shkabaj_flutter/src/ui/horizontal_scrollview.dart';
+import 'package:shkabaj_flutter/src/ui/horizontal_scrollview_one.dart';
+import 'package:shkabaj_flutter/src/ui/horizontal_scrollview_two.dart';
 import 'package:shkabaj_flutter/src/ui/viewModel/ballina_vm.dart';
 
 void main() {
@@ -74,8 +75,7 @@ class BallinaScreen extends StatelessWidget {
                 VideoSection(),
                 SectionHeader(itemType: HeaderType.Moti),
                 CircularViewPager(),
-                SectionHeader(itemType: HeaderType.Tv),
-                //HorizontalScrollView(),
+                TvSection(),
                 LidhjeSection()
               ],
             ),
@@ -96,7 +96,7 @@ class VideoSection extends StatelessWidget {
           stream: ballinaBloc.videos,
           builder: (context, snapshot) {
             if (snapshot.data != null && (snapshot.data as List).isNotEmpty) {
-              HorizontalScrollView view = HorizontalScrollView();
+              HorizontalScrollViewOneTitle view = HorizontalScrollViewOneTitle();
               view.setVideoData(snapshot.data);
               return view;
             }
@@ -119,14 +119,36 @@ class LidhjeSection extends StatelessWidget {
           stream: ballinaBloc.lidhje,
           builder: (context, snapshot) {
             if (snapshot.data != null) {
-              HorizontalScrollView view = HorizontalScrollView();
+              HorizontalScrollViewOneTitle view = HorizontalScrollViewOneTitle();
               view.setLidhjeData(snapshot.data);
               return view;
             }
             return CircularProgressIndicator();
           },
         )
+      ],
+    );
+  }
+}
 
+class TvSection extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SectionHeader(itemType: HeaderType.Tv),
+        StreamBuilder(
+          stream: ballinaBloc.tv,
+          builder: (context, snapshot) {
+            if (snapshot.data != null) {
+              HorizontalScrollViewTwoLines view = HorizontalScrollViewTwoLines();
+              view.setTvData(snapshot.data);
+              return view;
+            }
+            return CircularProgressIndicator();
+          },
+        )
       ],
     );
   }

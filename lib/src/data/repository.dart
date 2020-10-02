@@ -14,5 +14,8 @@ class Repository {
 
     client.getLidhje().then((value) =>
       ballinaBloc.setLidhje(value.albanianLinks[0].sourceList));
+
+    client.getTv().then((value) =>
+      ballinaBloc.setTv(value.tv[0].tvList));
   }
 }

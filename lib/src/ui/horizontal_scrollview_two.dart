@@ -1,42 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shkabaj_flutter/src/models/lidhje.dart';
-import 'package:shkabaj_flutter/src/models/popular_channel_list.dart';
+import 'package:shkabaj_flutter/src/models/tv.dart';
 
-class HorizontalScrollView extends StatelessWidget {
-  bool isVideo;
-  bool isLidhje;
+class HorizontalScrollViewTwoLines extends StatelessWidget {
+  List<TvItem> tvData = new List();
+  bool isTv;
 
-  List<PopularChannelList> videoData = new List();
-  List<LidhjeItem> lidhjeData = new List();
-
-  void setVideoData(List<PopularChannelList> data) {
-    this.videoData.addAll(data);
-    isVideo = true;
-    isLidhje = false;
-  }
-
-  void setLidhjeData(List<LidhjeItem> data) {
-    this.lidhjeData.addAll(data);
-    isVideo = false;
-    isLidhje = true;
+  void setTvData(List<TvItem> data) {
+    this.tvData.addAll(data);
+    isTv = true;
   }
 
   @override
   Widget build(BuildContext context) {
     List<Widget> list = List();
-    if (isVideo) {
-      for (int i = 0; i < videoData.length; i++) {
+    if (isTv) {
+      for (int i = 0; i < tvData.length; i++) {
         list.add(ItemView(
-          videoName: videoData[i].name,
-          logo: videoData[i].logo,
-        ));
-      }
-    } else if (isLidhje) {
-      for (int i = 0; i < lidhjeData.length; i++) {
-        list.add(ItemView(
-          videoName: lidhjeData[i].name,
-          logo: lidhjeData[i].logo,
+          name: tvData[i].name,
+          logo: "../" + tvData[i].logo,
+          location: tvData[i].location,
         ));
       }
     }
@@ -57,10 +40,11 @@ class HorizontalScrollView extends StatelessWidget {
 }
 
 class ItemView extends StatelessWidget {
-  final String videoName;
+  final String name;
   final String logo;
+  final String location;
 
-  const ItemView({Key key, this.videoName, this.logo}) : super(key: key);
+  const ItemView({Key key, this.name, this.logo, this.location}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +66,15 @@ class ItemView extends StatelessWidget {
           Container(
               width: 150,
               child: Padding(
-                child: Text(videoName, style: TextStyle(fontSize: 17), textAlign: TextAlign.start),
+                child: Text(name, style: TextStyle(fontSize: 17), textAlign: TextAlign.start),
                 padding: EdgeInsets.only(left: 5),
+              )
+          ),
+          Container(
+              width: 150,
+              child: Padding(
+                child: Text(location, style: TextStyle(fontSize: 17), textAlign: TextAlign.start),
+                padding: EdgeInsets.only(left: 5, top: 3),
               )
           )
         ],
