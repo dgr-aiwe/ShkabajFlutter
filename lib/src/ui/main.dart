@@ -9,15 +9,17 @@ import 'package:shkabaj_flutter/src/ui/common/drawer.dart';
 import 'package:shkabaj_flutter/generated/l10n.dart';
 import 'package:shkabaj_flutter/src/ui/header.dart';
 import 'package:shkabaj_flutter/src/ui/horizontal_scrollview.dart';
+import 'package:shkabaj_flutter/src/ui/viewModel/ballina_vm.dart';
 
 void main() {
   runApp(ShkabajApp());
 }
 
 class ShkabajApp extends StatelessWidget {
-
+  BallinaViewModel viewModel = BallinaViewModel();
   @override
   Widget build(BuildContext context) {
+    viewModel.loadData();
     return MaterialApp(
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
