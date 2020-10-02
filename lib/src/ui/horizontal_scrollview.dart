@@ -1,24 +1,33 @@
 import 'package:flutter/cupertino.dart';
+import 'package:shkabaj_flutter/src/models/popular_channel_list.dart';
 
 class HorizontalScrollView extends StatelessWidget {
 
+  List<PopularChannelList> data = new List();
+
+  void setData(List<PopularChannelList> data) {
+    this.data.addAll(data);
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<Widget> list = List();
+    for (int i = 0; i < data.length; i++) {
+      list.add(ItemView(
+        videoName: data[i].name,
+        logo: data[i].logo,
+      ));
+    }
+
     return Column(
       children: [
         Container(
-          height: 100,
+          height: 120,
           width: double.infinity,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
-              ItemView(),
-              ItemView(),
-              ItemView(),
-              ItemView(),
-              ItemView(),
-              ItemView(),
-              ItemView()
+              ...list
             ],
           ),
         )
@@ -29,24 +38,35 @@ class HorizontalScrollView extends StatelessWidget {
 
 class ItemView extends StatelessWidget {
 
+  final String videoName;
+  final String logo;
+
+  const ItemView({Key key, this.videoName, this.logo}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisSize: MainAxisSize.max,
       textDirection: TextDirection.ltr,
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset("lib/assets/images/shkabaj.png",
-                width: 150,
-                height: 50,
+              Image.network("https://shkabaj.net/" + logo.substring(3),
+                height: 80,
               ),
-              Text(
-                  "Item descrioption"
+
+              Padding(
+                padding: EdgeInsets.only(top: 5),
+                child: Text(videoName,
+                  style: TextStyle(
+                      fontSize: 17
+                  ),
+                )
               )
-            ],
+            ]
           ),
         )
       ],

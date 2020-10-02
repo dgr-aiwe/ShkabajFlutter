@@ -1,8 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shkabaj_flutter/src/blocs/localization_bloc.dart';
+import 'package:shkabaj_flutter/src/blocs/video_bloc.dart';
 import 'package:shkabaj_flutter/src/ui/circular_viewpager.dart';
 import 'package:shkabaj_flutter/src/ui/common/app_bar.dart';
 import 'package:shkabaj_flutter/src/ui/common/drawer.dart';
@@ -69,21 +68,43 @@ class BallinaScreen extends StatelessWidget {
                 SectionHeader(itemType: HeaderType.Lajme),
                 CircularViewPager(),
                 SectionHeader(itemType: HeaderType.DailyVideos),
-                HorizontalScrollView(),
+                //HorizontalScrollView(),
                 SectionHeader(itemType: HeaderType.Radio),
-                HorizontalScrollView(),
-                SectionHeader(itemType: HeaderType.Video),
-                HorizontalScrollView(),
+                //HorizontalScrollView(),
+                VideoSection(),
                 SectionHeader(itemType: HeaderType.Moti),
                 CircularViewPager(),
                 SectionHeader(itemType: HeaderType.Tv),
-                HorizontalScrollView(),
+                //HorizontalScrollView(),
                 SectionHeader(itemType: HeaderType.Lidhje),
-                HorizontalScrollView()
+                //HorizontalScrollView()
               ],
             ),
           )
       ),
+    );
+  }
+}
+
+class VideoSection extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SectionHeader(itemType: HeaderType.Video),
+        StreamBuilder(
+          stream: videoBlock.videos,
+          builder: (context, snapshot) {
+            if (snapshot.data != null && (snapshot.data as List).isNotEmpty) {
+              HorizontalScrollView view = HorizontalScrollView();
+              view.setData(snapshot.data);
+              return view;
+            }
+            return CircularProgressIndicator();
+          },
+        )
+      ],
     );
   }
 }
