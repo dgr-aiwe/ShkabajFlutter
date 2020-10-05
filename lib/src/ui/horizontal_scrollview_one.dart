@@ -83,7 +83,7 @@ class ItemView extends StatelessWidget {
           Container(
               width: 150,
               child: Padding(
-                child: Text(videoName, style: TextStyle(fontSize: 17), textAlign: TextAlign.start),
+                child: Text(videoName, style: TextStyle(fontSize: 16), textAlign: TextAlign.start),
                 padding: EdgeInsets.only(left: 5),
               )
           )

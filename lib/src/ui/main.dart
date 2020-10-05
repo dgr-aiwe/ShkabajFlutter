@@ -70,8 +70,7 @@ class BallinaScreen extends StatelessWidget {
                 CircularViewPager(),
                 SectionHeader(itemType: HeaderType.DailyVideos),
                 //HorizontalScrollView(),
-                SectionHeader(itemType: HeaderType.Radio),
-                //HorizontalScrollView(),
+                RadioSection(),
                 VideoSection(),
                 SectionHeader(itemType: HeaderType.Moti),
                 CircularViewPager(),
@@ -147,6 +146,29 @@ class TvSection extends StatelessWidget {
               return view;
             }
             return CircularProgressIndicator();
+          },
+        )
+      ],
+    );
+  }
+}
+
+class RadioSection extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SectionHeader(itemType: HeaderType.Radio),
+        StreamBuilder(
+          stream: ballinaBloc.radio,
+          builder: (context, snapshot) {
+            if (snapshot.data != null) {
+              HorizontalScrollViewTwoLines view = HorizontalScrollViewTwoLines();
+              view.setRadioData(snapshot.data);
+              return view;
+            }
+            else return CircularProgressIndicator();
           },
         )
       ],

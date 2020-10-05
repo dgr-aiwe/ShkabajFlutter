@@ -17,5 +17,8 @@ class Repository {
 
     client.getTv().then((value) =>
       ballinaBloc.setTv(value.tv[0].tvList));
+
+    client.getRadios().then((value) =>
+      ballinaBloc.setRadios(value.radios));
   }
 }

@@ -1,14 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shkabaj_flutter/src/models/radio.dart';
 import 'package:shkabaj_flutter/src/models/tv.dart';
 
 class HorizontalScrollViewTwoLines extends StatelessWidget {
   List<TvItem> tvData = new List();
+  List<RadioItem> radioData = new List();
   bool isTv;
+  bool isRadio;
 
   void setTvData(List<TvItem> data) {
     this.tvData.addAll(data);
     isTv = true;
+    isRadio = false;
+  }
+
+  void setRadioData(List<RadioItem> data) {
+    this.radioData.addAll(data);
+    isRadio = true;
+    isTv = false;
   }
 
   @override
@@ -18,8 +28,17 @@ class HorizontalScrollViewTwoLines extends StatelessWidget {
       for (int i = 0; i < tvData.length; i++) {
         list.add(ItemView(
           name: tvData[i].name,
-          logo: "../" + tvData[i].logo,
+          logo: "https://shkabaj.net/" + tvData[i].logo,
           location: tvData[i].location,
+        ));
+      }
+    }
+    else if (isRadio) {
+      for (int i = 0; i < radioData.length; i++) {
+        list.add(ItemView(
+          name: radioData[i].name,
+          logo: "https://www.shkabaj.net/mobi/ios/img/" + radioData[i].imageName,
+          location: radioData[i].city,
         ));
       }
     }
@@ -27,7 +46,7 @@ class HorizontalScrollViewTwoLines extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 135,
+          height: 155,
           width: double.infinity,
           child: ListView(
             scrollDirection: Axis.horizontal,
@@ -59,22 +78,22 @@ class ItemView extends StatelessWidget {
                 width: 150,
                 height: 84,
                 child: Image.network(
-                  "https://shkabaj.net/" + logo.substring(3),
+                  logo
                 ),
               )
           ),
           Container(
               width: 150,
               child: Padding(
-                child: Text(name, style: TextStyle(fontSize: 17), textAlign: TextAlign.start),
+                child: Text(name, style: TextStyle(fontSize: 16), textAlign: TextAlign.start),
                 padding: EdgeInsets.only(left: 5),
               )
           ),
           Container(
               width: 150,
               child: Padding(
-                child: Text(location, style: TextStyle(fontSize: 17), textAlign: TextAlign.start),
-                padding: EdgeInsets.only(left: 5, top: 3),
+                child: Text(location, style: TextStyle(fontSize: 16), textAlign: TextAlign.start, overflow: TextOverflow.ellipsis),
+                padding: EdgeInsets.only(left: 5, top: 1),
               )
           )
         ],

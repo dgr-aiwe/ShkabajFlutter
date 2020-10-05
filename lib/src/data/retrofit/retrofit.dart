@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:shkabaj_flutter/src/models/lidhje.dart';
+import 'package:shkabaj_flutter/src/models/radio.dart';
 import 'package:shkabaj_flutter/src/models/tv.dart';
 import 'package:shkabaj_flutter/src/models/video.dart';
 
@@ -18,4 +19,7 @@ abstract class ApiClient {
 
   @GET("/mobi/common/tv-android.json")
   Future<Tv> getTv();
+
+  @GET("/mobi/android/radio/stats/radios.php")
+  Future<Radio> getRadios();
 }
