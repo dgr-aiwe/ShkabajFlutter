@@ -1,9 +1,11 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:shkabaj_flutter/src/blocs/ballina_bloc.dart';
 import 'package:shkabaj_flutter/src/data/retrofit/retrofit.dart';
+import 'package:shkabaj_flutter/src/models/daily_video.dart';
 
 class Repository {
-  static const String TV_SCREEN_URL = "https://www.shkabaj.net/mobi/common/tv-android.json";
 
   void loadData() {
     Dio dio = Dio();
@@ -20,5 +22,9 @@ class Repository {
 
     client.getRadios().then((value) =>
       ballinaBloc.setRadios(value.radios));
+
+    dio.post("https://www.shkabaj.net/mobi/common/video-caching/cached-files/PLmJUxMrdr6xCZpmpsWwDOO5KMEgAQIT43.txt")
+        .then((value) =>
+        ballinaBloc.setDailyVideos(DailyVideo.fromJson(json.decode(value.data)).items));
   }
 }

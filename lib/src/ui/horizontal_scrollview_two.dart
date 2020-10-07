@@ -92,7 +92,7 @@ class ItemView extends StatelessWidget {
           Container(
               width: 150,
               child: Padding(
-                child: Text(location, style: TextStyle(fontSize: 16), textAlign: TextAlign.start, overflow: TextOverflow.ellipsis),
+                child: Text(location, style: TextStyle(fontSize: 16, color: Colors.grey), textAlign: TextAlign.start, overflow: TextOverflow.ellipsis),
                 padding: EdgeInsets.only(left: 5, top: 1),
               )
           )

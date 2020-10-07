@@ -1,4 +1,5 @@
 import 'package:rxdart/rxdart.dart';
+import 'package:shkabaj_flutter/src/models/daily_video.dart';
 import 'package:shkabaj_flutter/src/models/lidhje.dart';
 import 'package:shkabaj_flutter/src/models/popular_channel_list.dart';
 import 'package:shkabaj_flutter/src/models/radio.dart';
@@ -10,11 +11,13 @@ class BallinaBloc {
   final _lidhjeSetter = PublishSubject<List<LidhjeItem>>();
   final _tvSetter = PublishSubject<List<TvItem>>();
   final _radioSetter = PublishSubject<List<RadioItem>>();
+  final _dailyVideoSetter = PublishSubject<List<DailyVideoItem>>();
 
   Observable<List<PopularChannelList>> get videos => _videoSetter.stream;
   Observable<List<LidhjeItem>> get lidhje => _lidhjeSetter.stream;
   Observable<List<TvItem>> get tv => _tvSetter.stream;
   Observable<List<RadioItem>> get radio => _radioSetter.stream;
+  Observable<List<DailyVideoItem>> get dailyVideos => _dailyVideoSetter.stream;
 
   void setVideos(List<PopularChannelList> list) {
     _videoSetter.sink.add(list);
@@ -32,11 +35,16 @@ class BallinaBloc {
     _radioSetter.sink.add(list);
   }
 
+  void setDailyVideos(List<DailyVideoItem> list) {
+    _dailyVideoSetter.sink.add(list);
+  }
+
   void dispose() {
     _videoSetter.close();
     _lidhjeSetter.close();
     _tvSetter.close();
     _radioSetter.close();
+    _dailyVideoSetter.close();
   }
 }
 

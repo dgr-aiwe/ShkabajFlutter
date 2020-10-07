@@ -6,6 +6,7 @@ import 'package:shkabaj_flutter/src/ui/circular_viewpager.dart';
 import 'package:shkabaj_flutter/src/ui/common/app_bar.dart';
 import 'package:shkabaj_flutter/src/ui/common/drawer.dart';
 import 'package:shkabaj_flutter/generated/l10n.dart';
+import 'package:shkabaj_flutter/src/ui/daily_horizontal_scroll.dart';
 import 'package:shkabaj_flutter/src/ui/header.dart';
 import 'package:shkabaj_flutter/src/ui/horizontal_scrollview_one.dart';
 import 'package:shkabaj_flutter/src/ui/horizontal_scrollview_two.dart';
@@ -68,8 +69,7 @@ class BallinaScreen extends StatelessWidget {
               children: [
                 SectionHeader(itemType: HeaderType.Lajme),
                 CircularViewPager(),
-                SectionHeader(itemType: HeaderType.DailyVideos),
-                //HorizontalScrollView(),
+                DailyVideoSection(),
                 RadioSection(),
                 VideoSection(),
                 SectionHeader(itemType: HeaderType.Moti),
@@ -166,6 +166,29 @@ class RadioSection extends StatelessWidget {
             if (snapshot.data != null) {
               HorizontalScrollViewTwoLines view = HorizontalScrollViewTwoLines();
               view.setRadioData(snapshot.data);
+              return view;
+            }
+            else return CircularProgressIndicator();
+          },
+        )
+      ],
+    );
+  }
+}
+
+class DailyVideoSection extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SectionHeader(itemType: HeaderType.DailyVideos),
+        StreamBuilder(
+          stream: ballinaBloc.dailyVideos,
+          builder: (context, snapshot) {
+            if (snapshot.data != null) {
+              DailyVideoHorizontalScrollView view = DailyVideoHorizontalScrollView();
+              view.setVideos(snapshot.data);
               return view;
             }
             else return CircularProgressIndicator();

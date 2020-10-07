@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
+import 'package:shkabaj_flutter/src/models/daily_video.dart';
 import 'package:shkabaj_flutter/src/models/lidhje.dart';
 import 'package:shkabaj_flutter/src/models/radio.dart';
 import 'package:shkabaj_flutter/src/models/tv.dart';
