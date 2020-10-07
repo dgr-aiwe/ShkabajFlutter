@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:shkabaj_flutter/src/blocs/ballina_bloc.dart';
 import 'package:shkabaj_flutter/src/data/retrofit/retrofit.dart';
 import 'package:shkabaj_flutter/src/models/daily_video.dart';
+import 'package:shkabaj_flutter/src/models/moti.dart';
 
 class Repository {
 
@@ -26,5 +27,14 @@ class Repository {
     dio.post("https://www.shkabaj.net/mobi/common/video-caching/cached-files/PLmJUxMrdr6xCZpmpsWwDOO5KMEgAQIT43.txt")
         .then((value) =>
         ballinaBloc.setDailyVideos(DailyVideo.fromJson(json.decode(value.data)).items));
+
+    client.getShkMoti().then((value) =>
+        ballinaBloc.setMoti(Moti.fromJson(json.decode(value)), City.Shk));
+
+    client.getPrMoti().then((value) =>
+      ballinaBloc.setMoti(Moti.fromJson(json.decode(value)), City.Pr));
+
+    client.getTrMoti().then((value) =>
+        ballinaBloc.setMoti(Moti.fromJson(json.decode(value)), City.Tir));
   }
 }

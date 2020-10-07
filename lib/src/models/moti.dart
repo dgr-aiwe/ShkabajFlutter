@@ -1,20 +1,25 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
+part 'moti.g.dart';
+
 @JsonSerializable()
 class Moti {
-  final MotiData motiData;
+  final MotiData data;
   City city;
 
-  Moti(this.motiData, {this.city});
+  Moti(this.data, {this.city});
+  factory Moti.fromJson(Map<String, dynamic> json) => _$MotiFromJson(json);
 }
 
 @JsonSerializable()
 class MotiData {
-  final Weather data;
+  final Weather currentConditions;
 
-  MotiData(this.data);
+  MotiData(this.currentConditions);
+  factory MotiData.fromJson(Map<String, dynamic> json) => _$MotiDataFromJson(json);
 }
+
 
 @JsonSerializable()
 class Weather {
@@ -34,6 +39,8 @@ class Weather {
   Weather(this.humidity, this.visibility, this.pressure, this.cloudcover,
       this.FeelsLikeC, this.temperature, this.windDirection, this.windSpeed,
       this.sunset, this.sunrise, this.chanceofrain, this.iconUrlExt);
+
+  factory Weather.fromJson(Map<String, dynamic> json) => _$WeatherFromJson(json);
 }
 
 enum City {

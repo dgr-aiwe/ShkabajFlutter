@@ -1,6 +1,7 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:shkabaj_flutter/src/models/daily_video.dart';
 import 'package:shkabaj_flutter/src/models/lidhje.dart';
+import 'package:shkabaj_flutter/src/models/moti.dart';
 import 'package:shkabaj_flutter/src/models/popular_channel_list.dart';
 import 'package:shkabaj_flutter/src/models/radio.dart';
 import 'package:shkabaj_flutter/src/models/tv.dart';
@@ -12,12 +13,14 @@ class BallinaBloc {
   final _tvSetter = PublishSubject<List<TvItem>>();
   final _radioSetter = PublishSubject<List<RadioItem>>();
   final _dailyVideoSetter = PublishSubject<List<DailyVideoItem>>();
+  final _motiSetter = PublishSubject<Moti>();
 
   Observable<List<PopularChannelList>> get videos => _videoSetter.stream;
   Observable<List<LidhjeItem>> get lidhje => _lidhjeSetter.stream;
   Observable<List<TvItem>> get tv => _tvSetter.stream;
   Observable<List<RadioItem>> get radio => _radioSetter.stream;
   Observable<List<DailyVideoItem>> get dailyVideos => _dailyVideoSetter.stream;
+  Observable<Moti> get moti => _motiSetter.stream;
 
   void setVideos(List<PopularChannelList> list) {
     _videoSetter.sink.add(list);
@@ -39,12 +42,18 @@ class BallinaBloc {
     _dailyVideoSetter.sink.add(list);
   }
 
+  void setMoti(Moti data, City city) {
+    data.city = city;
+    _motiSetter.sink.add(data);
+  }
+
   void dispose() {
     _videoSetter.close();
     _lidhjeSetter.close();
     _tvSetter.close();
     _radioSetter.close();
     _dailyVideoSetter.close();
+    _motiSetter.close();
   }
 }
 

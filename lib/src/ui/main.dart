@@ -10,6 +10,7 @@ import 'package:shkabaj_flutter/src/ui/daily_horizontal_scroll.dart';
 import 'package:shkabaj_flutter/src/ui/header.dart';
 import 'package:shkabaj_flutter/src/ui/horizontal_scrollview_one.dart';
 import 'package:shkabaj_flutter/src/ui/horizontal_scrollview_two.dart';
+import 'package:shkabaj_flutter/src/ui/moti.dart';
 import 'package:shkabaj_flutter/src/ui/viewModel/ballina_vm.dart';
 
 void main() {
@@ -72,8 +73,7 @@ class BallinaScreen extends StatelessWidget {
                 DailyVideoSection(),
                 RadioSection(),
                 VideoSection(),
-                SectionHeader(itemType: HeaderType.Moti),
-                CircularViewPager(),
+                MotiViewPager(),
                 TvSection(),
                 LidhjeSection()
               ],
