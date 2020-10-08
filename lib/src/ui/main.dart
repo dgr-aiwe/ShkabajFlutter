@@ -70,10 +70,10 @@ class BallinaScreen extends StatelessWidget {
               children: [
                 SectionHeader(itemType: HeaderType.Lajme),
                 CircularViewPager(),
-                DailyVideoSection(),
+                //DailyVideoSection(),
                 RadioSection(),
                 VideoSection(),
-                MotiViewPager(),
+                MotiSection(),
                 TvSection(),
                 LidhjeSection()
               ],
@@ -195,6 +195,24 @@ class DailyVideoSection extends StatelessWidget {
           },
         )
       ],
+    );
+  }
+}
+
+class MotiSection extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: ballinaBloc.moti,
+      builder: (context, snapshot) {
+        if (snapshot.data != null) {
+          MotiViewPager view = MotiViewPager();
+          view.setMoti(snapshot.data);
+          return view;
+        }
+        else return CircularProgressIndicator();
+      },
     );
   }
 }
