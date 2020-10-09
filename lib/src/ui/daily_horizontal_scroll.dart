@@ -37,22 +37,23 @@ class DailyVideoHorizontalScrollView extends StatelessWidget {
   }
 
   String buildDuration(int i){
-    String time = videos[i].contentDetails.duration.substring(2);
-    int minutesIndex = time.indexOf("M");
-    String minutes = "00";
-    String seconds = "00";
-    if (minutesIndex != -1) {
-      minutes = time.substring(0, minutesIndex);
-      int.parse(minutes) < 10 ? minutes = "0" + minutes : minutes = minutes;
-      seconds = time.substring(minutesIndex + 1, time.length - 1);
-      int.parse(seconds) < 10 ? seconds = "0" + seconds : seconds = seconds;
-      return minutes + ":" + seconds;
-    }
-    else {
-      seconds = time.substring(0, time.length - 1);
-      int.parse(seconds) < 10 ? seconds = "0" + seconds : seconds = seconds;
-      return minutes + ":" + seconds;
-    }
+    // String time = videos[i].contentDetails.duration.substring(2);
+    // int minutesIndex = time.indexOf("M");
+    // String minutes = "00";
+    // String seconds = "00";
+    // if (minutesIndex != -1) {
+    //   minutes = time.substring(0, minutesIndex);
+    //   int.parse(minutes) < 10 ? minutes = "0" + minutes : minutes = minutes;
+    //   seconds = time.substring(minutesIndex + 1, time.length - 1);
+    //   int.parse(seconds) < 10 ? seconds = "0" + seconds : seconds = seconds;
+    //   return minutes + ":" + seconds;
+    // }
+    // else if (videos[i].contentDetails.duration.contains('S')) {
+    //   seconds = time.substring(0, time.length - 1);
+    //   int.parse(seconds) < 10 ? seconds = "0" + seconds : seconds = seconds;
+    //   return minutes + ":" + seconds;
+    // }
+    return videos[i].contentDetails.duration;
   }
 }
 

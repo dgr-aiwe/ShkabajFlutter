@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shkabaj_flutter/src/blocs/localization_bloc.dart';
 import 'package:shkabaj_flutter/src/blocs/ballina_bloc.dart';
+import 'package:shkabaj_flutter/src/models/moti.dart';
 import 'package:shkabaj_flutter/src/ui/circular_viewpager.dart';
 import 'package:shkabaj_flutter/src/ui/common/app_bar.dart';
 import 'package:shkabaj_flutter/src/ui/common/drawer.dart';
@@ -17,11 +18,18 @@ void main() {
   runApp(ShkabajApp());
 }
 
+bool shouldLoadData = true;
+
 class ShkabajApp extends StatelessWidget {
   BallinaViewModel viewModel = BallinaViewModel();
   @override
   Widget build(BuildContext context) {
-    viewModel.loadData();
+    if (shouldLoadData) {
+      viewModel.loadData();
+      shouldLoadData = false;
+      debugPrint("init");
+    }
+
     return MaterialApp(
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
@@ -70,7 +78,7 @@ class BallinaScreen extends StatelessWidget {
               children: [
                 SectionHeader(itemType: HeaderType.Lajme),
                 CircularViewPager(),
-                //DailyVideoSection(),
+                DailyVideoSection(),
                 RadioSection(),
                 VideoSection(),
                 MotiSection(),
@@ -200,16 +208,21 @@ class DailyVideoSection extends StatelessWidget {
 }
 
 class MotiSection extends StatelessWidget {
-
+  Map<City, Moti> motis = Map();
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: ballinaBloc.moti,
       builder: (context, snapshot) {
         if (snapshot.data != null) {
-          MotiViewPager view = MotiViewPager();
-          view.setMoti(snapshot.data);
-          return view;
+          debugPrint((snapshot.data as Moti).city.toString());
+          motis[(snapshot.data as Moti).city] = snapshot.data;
+          if (motis.length == 3) {
+            setMoti(motis);
+            MotiViewPager view = MotiViewPager();
+            return view;
+          }
+          return CircularProgressIndicator();
         }
         else return CircularProgressIndicator();
       },

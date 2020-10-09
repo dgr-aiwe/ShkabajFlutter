@@ -31,10 +31,14 @@ class Repository {
     client.getShkMoti().then((value) =>
         ballinaBloc.setMoti(Moti.fromJson(json.decode(value)), City.Shk));
 
-    client.getPrMoti().then((value) =>
-      ballinaBloc.setMoti(Moti.fromJson(json.decode(value)), City.Pr));
+    Future.delayed(Duration(seconds: 1), () => {
+      client.getPrMoti().then((value) =>
+      ballinaBloc.setMoti(Moti.fromJson(json.decode(value)), City.Pr))
+    });
 
-    client.getTrMoti().then((value) =>
-        ballinaBloc.setMoti(Moti.fromJson(json.decode(value)), City.Tir));
+    Future.delayed(Duration(seconds: 2), () => {
+      client.getTrMoti().then((value) =>
+          ballinaBloc.setMoti(Moti.fromJson(json.decode(value)), City.Tir))
+    });
   }
 }
