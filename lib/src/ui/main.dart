@@ -73,18 +73,20 @@ class BallinaScreen extends StatelessWidget {
       home: Scaffold(
           drawer: AppDrawer(),
           appBar: ShkabajAppBar(locale: snapshot.data),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                NewsSection(),
-                DailyVideoSection(),
-                RadioSection(),
-                VideoSection(),
-                MotiSection(),
-                TvSection(),
-                LidhjeSection()
-              ],
-            ),
+          body: SingleChildScrollView(child: Container(
+            color: Colors.white,
+                child: Column(
+                  children: [
+                    NewsSection(),
+                    DailyVideoSection(),
+                    RadioSection(),
+                    VideoSection(),
+                    MotiSection(),
+                    TvSection(),
+                    LidhjeSection()
+                  ],
+                )
+            )
           )
       ),
     );

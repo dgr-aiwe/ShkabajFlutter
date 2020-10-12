@@ -9,6 +9,10 @@ class ShkabajAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.white,
+      brightness: Brightness.light,
+      elevation: 0,
+      iconTheme: IconThemeData(color: Colors.blue),
       actions: [
         RaisedButton(
           onPressed: () => changeLocale(),

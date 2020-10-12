@@ -14,7 +14,7 @@ class BallinaBloc {
   final _tvSetter = PublishSubject<List<TvItem>>();
   final _radioSetter = PublishSubject<List<RadioItem>>();
   final _dailyVideoSetter = PublishSubject<List<DailyVideoItem>>();
-  final _motiSetter = PublishSubject<Moti>();
+  final _motiSetter = BehaviorSubject<Moti>();
   final _newsSetter = PublishSubject<List<New>>();
 
   Observable<List<PopularChannelList>> get videos => _videoSetter.stream;
