@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:shkabaj_flutter/src/models/news.dart';
 import 'package:shkabaj_flutter/src/ui/header.dart';
@@ -21,6 +23,12 @@ class _CircularViewPagerState extends State<CircularViewPager> {
   PageController _controller = PageController(
     initialPage: 0,
   );
+
+  @override
+  void initState() {
+    Timer.periodic(Duration(seconds: 5), (timer) { _controller.animateToPage((_controller.page + 1).toInt(),
+        duration: Duration(milliseconds: 200), curve: Curves.easeIn); });
+  }
 
   @override
   Widget build(BuildContext context) {
