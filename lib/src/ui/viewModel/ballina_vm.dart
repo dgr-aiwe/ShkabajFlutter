@@ -5,5 +5,6 @@ class BallinaViewModel {
 
   void loadData() {
     repository.loadData();
+    repository.loadMoti();
   }
 }

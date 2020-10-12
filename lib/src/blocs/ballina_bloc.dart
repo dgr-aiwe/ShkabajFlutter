@@ -14,7 +14,7 @@ class BallinaBloc {
   final _tvSetter = PublishSubject<List<TvItem>>();
   final _radioSetter = PublishSubject<List<RadioItem>>();
   final _dailyVideoSetter = PublishSubject<List<DailyVideoItem>>();
-  final _motiSetter = BehaviorSubject<Moti>();
+  final _motiSetter = BehaviorSubject<Map<City, Moti>>();
   final _newsSetter = PublishSubject<List<New>>();
 
   Observable<List<PopularChannelList>> get videos => _videoSetter.stream;
@@ -22,7 +22,7 @@ class BallinaBloc {
   Observable<List<TvItem>> get tv => _tvSetter.stream;
   Observable<List<RadioItem>> get radio => _radioSetter.stream;
   Observable<List<DailyVideoItem>> get dailyVideos => _dailyVideoSetter.stream;
-  Observable<Moti> get moti => _motiSetter.stream;
+  Observable<Map<City, Moti>> get moti => _motiSetter.stream;
   Observable<List<New>> get news => _newsSetter.stream;
 
   void setVideos(List<PopularChannelList> list) {
@@ -45,9 +45,8 @@ class BallinaBloc {
     _dailyVideoSetter.sink.add(list);
   }
 
-  void setMoti(Moti data, City city) {
-    data.city = city;
-    _motiSetter.sink.add(data);
+  void setMoti(Map<City, Moti> _map) {
+    _motiSetter.sink.add(_map);
   }
 
   void setNews(List<New> news) {

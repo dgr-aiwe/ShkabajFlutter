@@ -209,24 +209,18 @@ class DailyVideoSection extends StatelessWidget {
 }
 
 class MotiSection extends StatelessWidget {
-  Map<City, Moti> motis = Map();
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: ballinaBloc.moti,
       builder: (context, snapshot) {
         if (snapshot.data != null) {
-          debugPrint((snapshot.data as Moti).city.toString());
-          motis[(snapshot.data as Moti).city] = snapshot.data;
-          if (motis.length == 3) {
-            setMoti(motis);
+            setMoti(snapshot.data);
             MotiViewPager view = MotiViewPager();
             return view;
           }
           return CircularProgressIndicator();
         }
-        else return CircularProgressIndicator();
-      },
     );
   }
 }

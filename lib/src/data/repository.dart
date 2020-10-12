@@ -40,17 +40,16 @@ class Repository {
     dio.post("https://www.shkabaj.net/mobi/common/video-caching/cached-files/PLmJUxMrdr6xCZpmpsWwDOO5KMEgAQIT43.txt")
         .then((value) async =>
         ballinaBloc.setDailyVideos(DailyVideo.fromJson(json.decode(value.data)).items));
+  }
 
-    client.getShkMoti().then((value) async {
-      ballinaBloc.setMoti(Moti.fromJson(json.decode(value)), City.Shk);
-    });
+  void loadMoti() async {
+    Dio dio = Dio();
+    final client = ApiClient(dio);
 
-    client.getPrMoti().then((value) async {
-      ballinaBloc.setMoti(Moti.fromJson(json.decode(value)), City.Pr);
-    });
-
-     client.getTrMoti().then((value) async {
-       ballinaBloc.setMoti(Moti.fromJson(json.decode(value)), City.Tir);
-     });
+    Map<City, Moti> map = Map();
+    await client.getShkMoti().then((value) => map[City.Shk] = Moti.fromJson(json.decode(value)));
+    await client.getPrMoti().then((value) => map[City.Pr] = Moti.fromJson(json.decode(value)));
+    await client.getTrMoti().then((value) => map[City.Tir] = Moti.fromJson(json.decode(value)));
+    ballinaBloc.setMoti(map);
   }
 }
