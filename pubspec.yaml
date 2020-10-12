@@ -24,6 +24,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  shimmer: ^1.1.2
+
   # localization deps, need to add the plugin in tools
   intl: ^0.16.1
   flutter_localizations:

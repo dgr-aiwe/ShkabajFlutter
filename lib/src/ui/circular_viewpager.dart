@@ -41,7 +41,6 @@ class _CircularViewPagerState extends State<CircularViewPager> {
     return
       Column(
         children: [
-          SectionHeader(itemType: HeaderType.Lajme),
           Container(
             width: double.infinity,
             height: 340,

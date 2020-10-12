@@ -12,6 +12,7 @@ import 'package:shkabaj_flutter/src/ui/header.dart';
 import 'package:shkabaj_flutter/src/ui/horizontal_scrollview_one.dart';
 import 'package:shkabaj_flutter/src/ui/horizontal_scrollview_two.dart';
 import 'package:shkabaj_flutter/src/ui/moti.dart';
+import 'package:shkabaj_flutter/src/ui/placeholder.dart';
 import 'package:shkabaj_flutter/src/ui/viewModel/ballina_vm.dart';
 
 void main() {
@@ -108,7 +109,7 @@ class VideoSection extends StatelessWidget {
               view.setVideoData(snapshot.data);
               return view;
             }
-            return CircularProgressIndicator();
+            return ShimmerPlaceholder();
           },
         )
       ],
@@ -131,7 +132,7 @@ class LidhjeSection extends StatelessWidget {
               view.setLidhjeData(snapshot.data);
               return view;
             }
-            return CircularProgressIndicator();
+            return ShimmerPlaceholder();
           },
         )
       ],
@@ -154,7 +155,7 @@ class TvSection extends StatelessWidget {
               view.setTvData(snapshot.data);
               return view;
             }
-            return CircularProgressIndicator();
+            return ShimmerPlaceholder();
           },
         )
       ],
@@ -177,7 +178,7 @@ class RadioSection extends StatelessWidget {
               view.setRadioData(snapshot.data);
               return view;
             }
-            else return CircularProgressIndicator();
+            else return ShimmerPlaceholder();
           },
         )
       ],
@@ -200,7 +201,7 @@ class DailyVideoSection extends StatelessWidget {
               view.setVideos(snapshot.data);
               return view;
             }
-            else return CircularProgressIndicator();
+            else return ShimmerPlaceholder();
           },
         )
       ],
@@ -219,7 +220,7 @@ class MotiSection extends StatelessWidget {
             MotiViewPager view = MotiViewPager();
             return view;
           }
-          return CircularProgressIndicator();
+          return ShimmerPlaceholder();
         }
     );
   }
@@ -229,16 +230,21 @@ class NewsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: ballinaBloc.news,
-      builder: (context, snapshot) {
-        if (snapshot.data != null) {
-          CircularViewPager view = CircularViewPager();
-          view.setNews(snapshot.data);
-          return view;
-        }
-        return CircularProgressIndicator();
-      },
+    return Column(
+      children: [
+        SectionHeader(itemType: HeaderType.Lajme),
+        StreamBuilder(
+          stream: ballinaBloc.news,
+          builder: (context, snapshot) {
+            if (snapshot.data != null) {
+              CircularViewPager view = CircularViewPager();
+              view.setNews(snapshot.data);
+              return view;
+            }
+            return ShimmerPlaceholder();
+          },
+        )
+      ],
     );
   }
 }
