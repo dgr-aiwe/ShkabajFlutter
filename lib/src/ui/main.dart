@@ -76,8 +76,7 @@ class BallinaScreen extends StatelessWidget {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                SectionHeader(itemType: HeaderType.Lajme),
-                CircularViewPager(),
+                NewsSection(),
                 DailyVideoSection(),
                 RadioSection(),
                 VideoSection(),
@@ -225,6 +224,24 @@ class MotiSection extends StatelessWidget {
           return CircularProgressIndicator();
         }
         else return CircularProgressIndicator();
+      },
+    );
+  }
+}
+
+class NewsSection extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: ballinaBloc.news,
+      builder: (context, snapshot) {
+        if (snapshot.data != null) {
+          CircularViewPager view = CircularViewPager();
+          view.setNews(snapshot.data);
+          return view;
+        }
+        return CircularProgressIndicator();
       },
     );
   }

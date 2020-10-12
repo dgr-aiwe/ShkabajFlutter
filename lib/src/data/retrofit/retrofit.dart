@@ -33,4 +33,7 @@ abstract class ApiClient {
 
   @GET("/moti/wwo.php?a=city&c=Tirana%2C+Al")
   Future<String> getTrMoti();
+
+  @GET("/news/updates/shkabaj.xml")
+  Future<String> getNews();
 }
