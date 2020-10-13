@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shkabaj_flutter/src/blocs/localization_bloc.dart';
 import 'package:shkabaj_flutter/src/blocs/ballina_bloc.dart';
 import 'package:shkabaj_flutter/src/models/moti.dart';
+import 'package:shkabaj_flutter/src/models/resource.dart';
 import 'package:shkabaj_flutter/src/ui/circular_viewpager.dart';
 import 'package:shkabaj_flutter/src/ui/common/app_bar.dart';
 import 'package:shkabaj_flutter/src/ui/common/drawer.dart';
@@ -104,10 +105,13 @@ class VideoSection extends StatelessWidget {
         StreamBuilder(
           stream: ballinaBloc.videos,
           builder: (context, snapshot) {
-            if (snapshot.data != null && (snapshot.data as List).isNotEmpty) {
+            if (snapshot.data != null && (snapshot.data as Resource).isLoaded) {
               HorizontalScrollViewOneTitle view = HorizontalScrollViewOneTitle();
-              view.setVideoData(snapshot.data);
+              view.setVideoData((snapshot.data as Resource).data);
               return view;
+            }
+            else if (snapshot.data != null && !(snapshot.data as Resource).isLoaded) {
+              return Container();
             }
             return ShimmerPlaceholder();
           },
@@ -127,10 +131,13 @@ class LidhjeSection extends StatelessWidget {
         StreamBuilder(
           stream: ballinaBloc.lidhje,
           builder: (context, snapshot) {
-            if (snapshot.data != null) {
+            if (snapshot.data != null && (snapshot.data as Resource).isLoaded) {
               HorizontalScrollViewOneTitle view = HorizontalScrollViewOneTitle();
-              view.setLidhjeData(snapshot.data);
+              view.setLidhjeData((snapshot.data as Resource).data);
               return view;
+            }
+            else if (snapshot.data != null && !(snapshot.data as Resource).isLoaded) {
+              return Container();
             }
             return ShimmerPlaceholder();
           },
@@ -150,10 +157,13 @@ class TvSection extends StatelessWidget {
         StreamBuilder(
           stream: ballinaBloc.tv,
           builder: (context, snapshot) {
-            if (snapshot.data != null) {
+            if (snapshot.data != null && (snapshot.data as Resource).isLoaded) {
               HorizontalScrollViewTwoLines view = HorizontalScrollViewTwoLines();
-              view.setTvData(snapshot.data);
+              view.setTvData((snapshot.data as Resource).data);
               return view;
+            }
+            else if (snapshot.data != null && !(snapshot.data as Resource).isLoaded) {
+              return Container();
             }
             return ShimmerPlaceholder();
           },
@@ -173,10 +183,14 @@ class RadioSection extends StatelessWidget {
         StreamBuilder(
           stream: ballinaBloc.radio,
           builder: (context, snapshot) {
-            if (snapshot.data != null) {
+            if (snapshot.data != null && (snapshot.data as Resource).isLoaded
+              && ((snapshot.data as Resource).data as List).isNotEmpty) {
               HorizontalScrollViewTwoLines view = HorizontalScrollViewTwoLines();
-              view.setRadioData(snapshot.data);
+              view.setRadioData((snapshot.data as Resource).data);
               return view;
+            }
+            else if (snapshot.data != null && !(snapshot.data as Resource).isLoaded) {
+              return Container();
             }
             else return ShimmerPlaceholder();
           },
@@ -196,10 +210,13 @@ class DailyVideoSection extends StatelessWidget {
         StreamBuilder(
           stream: ballinaBloc.dailyVideos,
           builder: (context, snapshot) {
-            if (snapshot.data != null) {
+            if (snapshot.data != null && (snapshot.data as Resource).isLoaded) {
               DailyVideoHorizontalScrollView view = DailyVideoHorizontalScrollView();
-              view.setVideos(snapshot.data);
+              view.setVideos((snapshot.data as Resource).data);
               return view;
+            }
+            else if (snapshot.data != null && !(snapshot.data as Resource).isLoaded) {
+              return Container();
             }
             else return ShimmerPlaceholder();
           },
@@ -215,11 +232,15 @@ class MotiSection extends StatelessWidget {
     return StreamBuilder(
       stream: ballinaBloc.moti,
       builder: (context, snapshot) {
-        if (snapshot.data != null) {
-            setMoti(snapshot.data);
+        if (snapshot.data != null && (snapshot.data as Resource).isLoaded &&
+            ((snapshot.data as Resource).data as Map) != null) {
+            setMoti((snapshot.data as Resource).data);
             MotiViewPager view = MotiViewPager();
             return view;
           }
+        else if (snapshot.data != null && !(snapshot.data as Resource).isLoaded) {
+          return Container();
+        }
           return ShimmerPlaceholder();
         }
     );
@@ -236,12 +257,15 @@ class NewsSection extends StatelessWidget {
         StreamBuilder(
           stream: ballinaBloc.news,
           builder: (context, snapshot) {
-            if (snapshot.data != null) {
+            if (snapshot.data != null && (snapshot.data as Resource).isLoaded) {
               CircularViewPager view = CircularViewPager();
-              view.setNews(snapshot.data);
+              view.setNews((snapshot.data as Resource).data);
               return view;
             }
-            return ShimmerPlaceholder();
+            else if (snapshot.data != null && !(snapshot.data as Resource).isLoaded) {
+              return Container();
+            }
+            else return ShimmerPlaceholder();
           },
         )
       ],

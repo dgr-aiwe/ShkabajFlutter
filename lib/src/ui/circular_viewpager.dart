@@ -30,7 +30,6 @@ class _CircularViewPagerState extends State<CircularViewPager> {
         duration: Duration(milliseconds: 250), curve: Curves.easeIn); });
 
     _controller..addListener(() {
-      print(_controller.page.toString());
 
       if (_controller.page.toInt() == pages.length - 1) {
         _controller.jumpToPage(1);
