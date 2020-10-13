@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:shkabaj_flutter/src/models/news.dart';
 
-
 List<New> news = List();
 List<Widget> pages = List();
+const String NEWS_PART_URL = "https://www.shkabaj.net/news/updates/";
 
 class CircularViewPager extends StatefulWidget {
 
@@ -26,16 +26,16 @@ class _CircularViewPagerState extends State<CircularViewPager> {
 
   @override
   void initState() {
-    Timer.periodic(Duration(seconds: 7), (timer) { _controller.animateToPage((_controller.page + 1).toInt(),
-        duration: Duration(milliseconds: 250), curve: Curves.easeIn); });
+    // Timer.periodic(Duration(seconds: 7), (timer) { _controller.animateToPage((_controller.page + 1).toInt(),
+    //     duration: Duration(milliseconds: 250), curve: Curves.easeIn); });
 
     _controller..addListener(() {
 
-      if (_controller.page.toInt() == pages.length - 1) {
+      if (_controller.page >= pages.length - 1 - 0.025) {
         _controller.jumpToPage(1);
       }
-      else if (_controller.page.toInt() == 0) {
-        Future.delayed(Duration(milliseconds: 380), () => { _controller.jumpToPage(pages.length - 2) });
+      else if (_controller.page < 0.025) {
+        Future.delayed(Duration(milliseconds: 30), () => { _controller.jumpToPage(pages.length - 2) });
       }
     });
   }
@@ -44,14 +44,14 @@ class _CircularViewPagerState extends State<CircularViewPager> {
   Widget build(BuildContext context) {
 
     pages.add(_Page(title: news[news.length - 1].title,
-        logo: "https://www.shkabaj.net/news/updates/" + news[news.length - 1].logo));
+        logo: NEWS_PART_URL + news[news.length - 1].logo));
 
     for (int i = 0; i < news.length; i++) {
-      pages.add(_Page(title: news[i].title, logo: "https://www.shkabaj.net/news/updates/" + news[i].logo));
+      pages.add(_Page(title: news[i].title, logo: NEWS_PART_URL + news[i].logo));
     }
 
     pages.add(_Page(title: news[0].title,
-        logo: "https://www.shkabaj.net/news/updates/" + news[0].logo));
+        logo: NEWS_PART_URL + news[0].logo));
 
     return
       Column(

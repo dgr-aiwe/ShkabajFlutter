@@ -11,21 +11,25 @@ import 'package:shkabaj_flutter/src/models/resource.dart';
 import 'package:xml/xml.dart';
 
 class Repository {
+  
+  static const NEWS_URL = "https://www.shkabaj.net/news/updates/shkabaj.xml";
+  static const DAILY_VIDEO_URL = "https://www.shkabaj.net/mobi/common/video-caching/cached-files/PLmJUxMrdr6xCZpmpsWwDOO5KMEgAQIT43.txt";
+  static const PROXY = "PROXY 192.168.1.60:8888";
 
   void loadData() {
-    Dio dio = setupDio();
+    Dio dio = _setupDio();
     final client = ApiClient(dio);
 
-    loadVideos(client);
-    loadLidhje(client);
-    loadTv(client);
-    loadNews(dio);
-    loadRadios(client);
-    loadDailyVideos(dio);
-    loadMoti(client);
+    _loadVideos(client);
+    _loadLidhje(client);
+    _loadTv(client);
+    _loadNews(dio);
+    _loadRadios(client);
+    _loadDailyVideos(dio);
+    _loadMoti(client);
   }
 
-  void loadRadios(ApiClient client) {
+  void _loadRadios(ApiClient client) {
     client.getRadios().then((value) async =>
       ballinaBloc.setRadios(Resource(isLoaded: true, data: value.radios)),
     onError: (error) {
@@ -33,7 +37,7 @@ class Repository {
     });
   }
 
-  void loadTv(ApiClient client) {
+  void _loadTv(ApiClient client) {
     client.getTv().then(
         (value) async => ballinaBloc
             .setTv(Resource(isLoaded: true, data: value.tv[0].tvList)),
@@ -42,7 +46,7 @@ class Repository {
     });
   }
 
-  void loadLidhje(ApiClient client) {
+  void _loadLidhje(ApiClient client) {
     client.getLidhje().then((value) async =>
       ballinaBloc.setLidhje(Resource(isLoaded: true, data: value.albanianLinks[0].sourceList)),
     onError: (error) {
@@ -50,7 +54,7 @@ class Repository {
     });
   }
 
-  void loadVideos(ApiClient client) {
+  void _loadVideos(ApiClient client) {
     client.getVideos().then((value) async =>
         ballinaBloc.setVideos(Resource(isLoaded: true, data: value.popularChannels[0].popularChannelList)),
     onError: (error) {
@@ -58,8 +62,8 @@ class Repository {
     });
   }
 
-  void loadDailyVideos(Dio dio) {
-    dio.post("https://www.shkabaj.net/mobi/common/video-caching/cached-files/PLmJUxMrdr6xCZpmpsWwDOO5KMEgAQIT43.txt")
+  void _loadDailyVideos(Dio dio) {
+    dio.post(DAILY_VIDEO_URL)
         .then((value) async => ballinaBloc.setDailyVideos(
           Resource(isLoaded: true, data: DailyVideo.fromJson(json.decode(value.data)).items)),
         onError: (error) {
@@ -67,8 +71,8 @@ class Repository {
     });
   }
 
-  void loadNews(Dio dio) {
-    dio.post("https://www.shkabaj.net/news/updates/shkabaj.xml").then((value) async {
+  void _loadNews(Dio dio) {
+    dio.post(NEWS_URL).then((value) async {
       XmlDocument document = XmlDocument.parse(value.data as String);
       List<XmlElement> titles = document.findAllElements("title").toList();
       List<XmlElement> images = document.findAllElements("imageURI").toList();
@@ -86,12 +90,12 @@ class Repository {
     });
   }
 
-  Dio setupDio() {
+  Dio _setupDio() {
     Dio dio = Dio();
     
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
       client.findProxy = (uri) {
-        return "PROXY 192.168.1.60:8888";
+        return PROXY;
       };
     
       client.badCertificateCallback =
@@ -100,7 +104,7 @@ class Repository {
     return dio;
   }
 
-  void loadMoti(client) async {
+  void _loadMoti(client) async {
     Map<City, Moti> map = Map();
 
     try {

@@ -29,7 +29,6 @@ class ShkabajApp extends StatelessWidget {
     if (shouldLoadData) {
       viewModel.loadData();
       shouldLoadData = false;
-      debugPrint("init");
     }
 
     return MaterialApp(

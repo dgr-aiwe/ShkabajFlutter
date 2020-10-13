@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shkabaj_flutter/src/models/lidhje.dart';
-import 'package:shkabaj_flutter/src/models/popular_channel_list.dart';
-import 'package:shkabaj_flutter/src/models/tv.dart';
+import 'package:shkabaj_flutter/src/models/video.dart';
 
 class HorizontalScrollViewOneTitle extends StatelessWidget {
   bool isVideo;
