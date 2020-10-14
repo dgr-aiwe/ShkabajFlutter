@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shkabaj_flutter/src/blocs/localization_bloc.dart';
 import 'package:shkabaj_flutter/src/blocs/ballina_bloc.dart';
 import 'package:shkabaj_flutter/src/models/resource.dart';
+import 'package:shkabaj_flutter/src/ui/lajme/lajme.dart';
 import 'package:shkabaj_flutter/src/ui/main/circular_viewpager.dart';
 import 'package:shkabaj_flutter/src/ui/common/app_bar.dart';
 import 'package:shkabaj_flutter/src/ui/common/drawer.dart';
@@ -34,46 +35,56 @@ class BallinaScreen extends StatelessWidget {
             shouldLoadData = false;
           }
 
-          return buildScreen(context, snapshot.data);
+          return BallinaPage(locale: snapshot.data);
         }
         return Container();
       },
     );
   }
+}
 
-  Widget buildScreen(BuildContext context, Locale locale) {
-    return MaterialApp(
-      locale: locale,
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        S.delegate
-      ],
-      supportedLocales: [
-        const Locale("ru"),
-        const Locale("en")
-      ],
-      home: Scaffold(
-          drawer: AppDrawer(),
-          appBar: ShkabajAppBar(locale: locale),
-          body: SingleChildScrollView(child: Container(
+class BallinaPage extends StatelessWidget {
+  final Locale locale;
+
+  const BallinaPage({Key key, this.locale}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context){
+  return MaterialApp(
+    routes: {
+      '/lajme' : (context) => LajmeScreen()
+    },
+    locale: locale,
+    localizationsDelegates: [
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+      S.delegate
+    ],
+    supportedLocales: [
+      const Locale("ru"),
+      const Locale("en")
+    ],
+    home: Scaffold(
+        drawer: AppDrawer(),
+        appBar: ShkabajAppBar(locale: locale),
+        body: SingleChildScrollView(child: Container(
             color: Colors.white,
-                child: Column(
-                  children: [
-                    NewsSection(),
-                    DailyVideoSection(),
-                    RadioSection(),
-                    VideoSection(),
-                    MotiSection(),
-                    TvSection(),
-                    LidhjeSection()
-                  ],
-                )
+            child: Column(
+              children: [
+                NewsSection(),
+                DailyVideoSection(),
+                RadioSection(),
+                VideoSection(),
+                MotiSection(),
+                TvSection(),
+                LidhjeSection()
+              ],
             )
-          )
-      ),
-    );
+        )
+        )
+    ),
+  );
   }
 }
 
@@ -92,7 +103,8 @@ class VideoSection extends StatelessWidget {
               view.setVideoData((snapshot.data as Resource).data);
               return view;
             }
-            else if (snapshot.data != null && !(snapshot.data as Resource).isLoaded) {
+            else if (snapshot.data != null &&
+                !(snapshot.data as Resource).isLoaded) {
               return Container();
             }
             return ShimmerPlaceholder();
@@ -118,7 +130,8 @@ class LidhjeSection extends StatelessWidget {
               view.setLidhjeData((snapshot.data as Resource).data);
               return view;
             }
-            else if (snapshot.data != null && !(snapshot.data as Resource).isLoaded) {
+            else if (snapshot.data != null &&
+                !(snapshot.data as Resource).isLoaded) {
               return Container();
             }
             return ShimmerPlaceholder();
@@ -144,7 +157,8 @@ class TvSection extends StatelessWidget {
               view.setTvData((snapshot.data as Resource).data);
               return view;
             }
-            else if (snapshot.data != null && !(snapshot.data as Resource).isLoaded) {
+            else if (snapshot.data != null &&
+                !(snapshot.data as Resource).isLoaded) {
               return Container();
             }
             return ShimmerPlaceholder();
@@ -166,15 +180,17 @@ class RadioSection extends StatelessWidget {
           stream: ballinaBloc.radio,
           builder: (context, snapshot) {
             if (snapshot.data != null && (snapshot.data as Resource).isLoaded
-              && ((snapshot.data as Resource).data as List).isNotEmpty) {
+                && ((snapshot.data as Resource).data as List).isNotEmpty) {
               HorizontalScrollViewTwoLines view = HorizontalScrollViewTwoLines();
               view.setRadioData((snapshot.data as Resource).data);
               return view;
             }
-            else if (snapshot.data != null && !(snapshot.data as Resource).isLoaded) {
+            else if (snapshot.data != null &&
+                !(snapshot.data as Resource).isLoaded) {
               return Container();
             }
-            else return ShimmerPlaceholder();
+            else
+              return ShimmerPlaceholder();
           },
         )
       ],
@@ -197,10 +213,12 @@ class DailyVideoSection extends StatelessWidget {
               view.setVideos((snapshot.data as Resource).data);
               return view;
             }
-            else if (snapshot.data != null && !(snapshot.data as Resource).isLoaded) {
+            else if (snapshot.data != null &&
+                !(snapshot.data as Resource).isLoaded) {
               return Container();
             }
-            else return ShimmerPlaceholder();
+            else
+              return ShimmerPlaceholder();
           },
         )
       ],
@@ -212,17 +230,17 @@ class MotiSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: ballinaBloc.moti,
-      builder: (context, snapshot) {
-        if (snapshot.data != null && (snapshot.data as Resource).isLoaded &&
-            ((snapshot.data as Resource).data as Map) != null) {
+        stream: ballinaBloc.moti,
+        builder: (context, snapshot) {
+          if (snapshot.data != null && (snapshot.data as Resource).isLoaded &&
+              ((snapshot.data as Resource).data as Map) != null) {
             setMoti((snapshot.data as Resource).data);
             MotiViewPager view = MotiViewPager();
             return view;
           }
-        else if (snapshot.data != null && !(snapshot.data as Resource).isLoaded) {
-          return Container();
-        }
+          else if (snapshot.data != null && !(snapshot.data as Resource).isLoaded) {
+            return Container();
+          }
           return ShimmerPlaceholder();
         }
     );
@@ -235,7 +253,6 @@ class NewsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SectionHeader(itemType: HeaderType.Lajme),
         StreamBuilder(
           stream: ballinaBloc.news,
           builder: (context, snapshot) {
@@ -244,7 +261,8 @@ class NewsSection extends StatelessWidget {
               view.setNews((snapshot.data as Resource).data);
               return view;
             }
-            else if (snapshot.data != null && !(snapshot.data as Resource).isLoaded) {
+            else if (snapshot.data != null &&
+                !(snapshot.data as Resource).isLoaded) {
               return Container();
             }
             else return ShimmerPlaceholder();

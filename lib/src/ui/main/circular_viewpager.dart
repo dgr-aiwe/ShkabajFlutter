@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:shkabaj_flutter/src/models/news.dart';
 
+import 'header.dart';
+
 List<New> news = List();
 List<Widget> pages = List();
 const String NEWS_PART_URL = "https://www.shkabaj.net/news/updates/";
@@ -53,9 +55,11 @@ class _CircularViewPagerState extends State<CircularViewPager> {
     pages.add(_Page(title: news[0].title,
         logo: NEWS_PART_URL + news[0].logo));
 
-    return
-      Column(
+    return GestureDetector(
+      onTap: () { Navigator.pushNamed(context, "/lajme"); },
+      child: Column(
         children: [
+          SectionHeader(itemType: HeaderType.Lajme),
           Container(
             width: double.infinity,
             height: 340,
@@ -67,7 +71,8 @@ class _CircularViewPagerState extends State<CircularViewPager> {
             ),
           )
         ],
-      );
+      ),
+    );
   }
 }
 
@@ -80,29 +85,29 @@ class _Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      textDirection: TextDirection.ltr,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Image.network(
-          logo,
-          height: 220,
-          width: double.infinity,
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5),
-                child: Text(
-                  title, maxLines: 4, style: TextStyle(fontSize: 23),
-                ),
+        textDirection: TextDirection.ltr,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.network(
+            logo,
+            height: 220,
+            width: double.infinity,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    child: Text(
+                      title, maxLines: 4, style: TextStyle(fontSize: 23),
+                    ),
+                  )
               )
-            )
-          ],
-        )
-      ],
+            ],
+          )
+        ],
     );
   }
 }
