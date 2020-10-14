@@ -20,8 +20,6 @@ void main() {
   runApp(BallinaScreen());
 }
 
-bool shouldLoadData = true;
-
 class BallinaScreen extends StatelessWidget {
   @override
   Widget build(BuildContext appContext) {
@@ -30,11 +28,6 @@ class BallinaScreen extends StatelessWidget {
       initialData: Locale("ru"),
       builder: (context, snapshot) {
         if (snapshot.data != null) {
-          if (shouldLoadData) {
-            BallinaViewModel().loadData();
-            shouldLoadData = false;
-          }
-
           return BallinaPage(locale: snapshot.data);
         }
         return Container();
@@ -50,22 +43,38 @@ class BallinaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-  return MaterialApp(
-    routes: {
-      '/lajme' : (context) => LajmeScreen()
-    },
-    locale: locale,
-    localizationsDelegates: [
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-      S.delegate
-    ],
-    supportedLocales: [
-      const Locale("ru"),
-      const Locale("en")
-    ],
-    home: Scaffold(
+    return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/' : (context) => Content(locale: locale),
+        '/lajme' : (context) => LajmePage(locale: locale)
+      },
+      locale: locale,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        S.delegate
+      ],
+      supportedLocales: [
+        const Locale("ru"),
+        const Locale("en")
+      ],
+    );
+  }
+}
+
+class Content extends StatelessWidget {
+
+  final Locale locale;
+
+  const Content({Key key, this.locale}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    BallinaViewModel().loadData();
+
+    return Scaffold(
         drawer: AppDrawer(),
         appBar: ShkabajAppBar(locale: locale),
         body: SingleChildScrollView(child: Container(
@@ -83,8 +92,7 @@ class BallinaPage extends StatelessWidget {
             )
         )
         )
-    ),
-  );
+    );
   }
 }
 

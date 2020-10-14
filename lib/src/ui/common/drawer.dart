@@ -22,7 +22,7 @@ class AppDrawer extends StatelessWidget {
                         padding: EdgeInsets.all(40),
                       )
                   ),
-                  DrawerItem(itemName: S.of(context).ballina_title, type: DrawerItemsEnum.BALLINA,),
+                  DrawerItem(itemName: S.of(context).ballina_title, type: DrawerItemsEnum.BALLINA),
                   DrawerItem(itemName: S.of(context).lajme_title, type: DrawerItemsEnum.LAJME,),
                   DrawerItem(itemName: S.of(context).radio_title, type: DrawerItemsEnum.RADIO,),
                   DrawerItem(itemName: S.of(context).video_title, type: DrawerItemsEnum.VIDEO,),
@@ -37,7 +37,19 @@ class AppDrawer extends StatelessWidget {
 }
 
 void _onItemClick(BuildContext context, DrawerItemsEnum type) {
-  Navigator.pop(context);
+  String screen;
+  switch (type) {
+    case DrawerItemsEnum.BALLINA: {
+      screen = "/";
+    }
+    break;
+
+    case DrawerItemsEnum.LAJME: {
+      screen = "/lajme";
+    }
+    break;
+  }
+  Navigator.pushReplacementNamed(context, screen);
   selectedItem = type;
 }
 
