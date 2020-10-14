@@ -3,7 +3,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shkabaj_flutter/src/blocs/localization_bloc.dart';
 import 'package:shkabaj_flutter/src/blocs/ballina_bloc.dart';
 import 'package:shkabaj_flutter/src/models/resource.dart';
-import 'package:shkabaj_flutter/src/ui/lajme/lajme.dart';
 import 'package:shkabaj_flutter/src/ui/main/circular_viewpager.dart';
 import 'package:shkabaj_flutter/src/ui/common/app_bar.dart';
 import 'package:shkabaj_flutter/src/ui/common/drawer.dart';
@@ -17,31 +16,10 @@ import 'package:shkabaj_flutter/src/ui/common/placeholder.dart';
 import 'package:shkabaj_flutter/src/ui/main/viewModel/ballina_vm.dart';
 
 void main() {
-  runApp(LajmeScreen());
+  runApp(BallinaScreen());
 }
 
 bool shouldLoadData = true;
-
-class ShkabajApp extends StatelessWidget {
-  BallinaViewModel viewModel = BallinaViewModel();
-  @override
-  Widget build(BuildContext context) {
-    if (shouldLoadData) {
-      viewModel.loadData();
-      shouldLoadData = false;
-    }
-
-    return MaterialApp(
-      localizationsDelegates: [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          S.delegate
-        ],
-        supportedLocales: S.delegate.supportedLocales,
-        home: BallinaScreen());
-  }
-}
 
 class BallinaScreen extends StatelessWidget {
   @override
@@ -50,17 +28,22 @@ class BallinaScreen extends StatelessWidget {
       stream: bloc.locale,
       initialData: Locale("ru"),
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
-         return buildScreen(context, snapshot);
+        if (snapshot.data != null) {
+          if (shouldLoadData) {
+            BallinaViewModel().loadData();
+            shouldLoadData = false;
+          }
+
+          return buildScreen(context, snapshot.data);
         }
-        return Text("No data");
+        return Container();
       },
     );
   }
 
-  Widget buildScreen(BuildContext context, AsyncSnapshot<Locale> snapshot) {
+  Widget buildScreen(BuildContext context, Locale locale) {
     return MaterialApp(
-      locale: snapshot.data,
+      locale: locale,
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -73,7 +56,7 @@ class BallinaScreen extends StatelessWidget {
       ],
       home: Scaffold(
           drawer: AppDrawer(),
-          appBar: ShkabajAppBar(locale: snapshot.data),
+          appBar: ShkabajAppBar(locale: locale),
           body: SingleChildScrollView(child: Container(
             color: Colors.white,
                 child: Column(

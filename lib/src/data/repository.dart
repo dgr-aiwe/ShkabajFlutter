@@ -15,6 +15,7 @@ class Repository {
   static const NEWS_URL = "https://www.shkabaj.net/news/updates/shkabaj.xml";
   static const DAILY_VIDEO_URL = "https://www.shkabaj.net/mobi/common/video-caching/cached-files/PLmJUxMrdr6xCZpmpsWwDOO5KMEgAQIT43.txt";
   static const PROXY = "PROXY 192.168.1.60:8888";
+  static const SHOULD_USE_PROXY = false;
 
   void loadData() {
     Dio dio = _setupDio();
@@ -92,15 +93,18 @@ class Repository {
 
   Dio _setupDio() {
     Dio dio = Dio();
-    
-    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-      client.findProxy = (uri) {
-        return PROXY;
+
+    if (SHOULD_USE_PROXY) {
+      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+        client.findProxy = (uri) {
+          return PROXY;
+        };
+
+        client.badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
       };
-    
-      client.badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-    };
+    }
+
     return dio;
   }
 
