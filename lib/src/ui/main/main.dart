@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shkabaj_flutter/src/blocs/localization_bloc.dart';
 import 'package:shkabaj_flutter/src/blocs/ballina_bloc.dart';
-import 'package:shkabaj_flutter/src/models/moti.dart';
 import 'package:shkabaj_flutter/src/models/resource.dart';
-import 'package:shkabaj_flutter/src/ui/circular_viewpager.dart';
+import 'package:shkabaj_flutter/src/ui/lajme/lajme.dart';
+import 'package:shkabaj_flutter/src/ui/main/circular_viewpager.dart';
 import 'package:shkabaj_flutter/src/ui/common/app_bar.dart';
 import 'package:shkabaj_flutter/src/ui/common/drawer.dart';
 import 'package:shkabaj_flutter/generated/l10n.dart';
-import 'package:shkabaj_flutter/src/ui/daily_horizontal_scroll.dart';
-import 'package:shkabaj_flutter/src/ui/header.dart';
-import 'package:shkabaj_flutter/src/ui/horizontal_scrollview_one.dart';
-import 'package:shkabaj_flutter/src/ui/horizontal_scrollview_two.dart';
-import 'package:shkabaj_flutter/src/ui/moti.dart';
-import 'package:shkabaj_flutter/src/ui/placeholder.dart';
-import 'package:shkabaj_flutter/src/ui/viewModel/ballina_vm.dart';
+import 'package:shkabaj_flutter/src/ui/main/daily_horizontal_scroll.dart';
+import 'package:shkabaj_flutter/src/ui/main/header.dart';
+import 'package:shkabaj_flutter/src/ui/main/horizontal_scrollview_one.dart';
+import 'package:shkabaj_flutter/src/ui/main/horizontal_scrollview_two.dart';
+import 'package:shkabaj_flutter/src/ui/main/moti.dart';
+import 'package:shkabaj_flutter/src/ui/common/placeholder.dart';
+import 'package:shkabaj_flutter/src/ui/main/viewModel/ballina_vm.dart';
 
 void main() {
-  runApp(ShkabajApp());
+  runApp(LajmeScreen());
 }
 
 bool shouldLoadData = true;
@@ -32,7 +32,7 @@ class ShkabajApp extends StatelessWidget {
     }
 
     return MaterialApp(
-        localizationsDelegates: [
+      localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
